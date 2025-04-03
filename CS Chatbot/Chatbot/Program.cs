@@ -1,42 +1,36 @@
 ﻿using System;
 using System.Speech.Synthesis;
+using System.Threading;
 
 class Program
 {
+    static SpeechSynthesizer synthesizer = new SpeechSynthesizer(); 
+
     static void Main(string[] args)
     {
-        
-        using (SpeechSynthesizer synthesizer = new SpeechSynthesizer())
-        {
-            synthesizer.SelectVoiceByHints(VoiceGender.Female); 
+        synthesizer.SelectVoiceByHints(VoiceGender.Female);
 
-            
-            string greetingMessage = "Hello, my name is Chattie! Welcome to the Cybersecurity Awareness Bot. I'm here to help you stay safe online.";
-            synthesizer.Speak(greetingMessage);
-        }
+        string greetingMessage = "Hello, my name is Chattie! Welcome to the Cybersecurity Awareness Bot. I'm here to help you stay safe online.";
+        SpeakAndPrint(greetingMessage);
 
-       
         DisplayAsciiArt();
 
-        
         Console.Write("Please enter your name: ");
         string userName = Console.ReadLine()?.Trim();
 
         Console.Write("Please enter your surname: ");
         string userSurname = Console.ReadLine()?.Trim();
 
-       
         if (string.IsNullOrWhiteSpace(userName) || string.IsNullOrWhiteSpace(userSurname))
         {
-            Console.WriteLine("Invalid input. Please restart and enter valid name and surname.");
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("Invalid input. Please restart and enter a valid name and surname.");
+            Console.ResetColor();
             return;
         }
 
-        
         DisplayWelcomeMessage(userName, userSurname);
-
-     
-        StartChat(userName, userSurname);
+        StartChat();
     }
 
     static void DisplayAsciiArt()
@@ -67,7 +61,7 @@ class Program
         Console.ResetColor();
     }
 
-    static void StartChat(string userName, string userSurname)
+    static void StartChat()
     {
         while (true)
         {
@@ -76,16 +70,15 @@ class Program
 
             if (string.IsNullOrWhiteSpace(userInput))
             {
-                Console.WriteLine("Could you clarify for me? I'd love to make sure I fully understand.");
+                Respond("Could you clarify for me? I'd love to make sure I fully understand.");
                 continue;
             }
 
-            
             if (userInput.Contains("how are you"))
             {
                 Respond("I'm just a program, but I'm here to help you stay safe online! How are you?");
             }
-            else if (userInput.Contains("how can you assist"))  
+            else if (userInput.Contains("how can you assist"))
             {
                 Respond("You can ask me about cybersecurity topics such as password safety, phishing, pharming, and safe browsing.");
             }
@@ -93,7 +86,6 @@ class Program
             {
                 Respond("You can ask me anything related to password safety, phishing, pharming, cybersecurity, and safe browsing practices.");
             }
-            
             else if (userInput.Contains("phishing"))
             {
                 Respond("Phishing is a method used by cybercriminals to trick individuals into providing sensitive information, often through fake emails or websites that appear legitimate.");
@@ -112,7 +104,8 @@ class Program
             }
             else if (userInput.Equals("exit"))
             {
-                Console.WriteLine("Thank you for using Chattie! Stay safe online!");
+                Respond("Thank you for using Chattie! Stay safe online!");
+                Thread.Sleep(1000);
                 break;
             }
             else
@@ -124,8 +117,28 @@ class Program
 
     static void Respond(string message)
     {
-        Console.ForegroundColor = ConsoleColor.Green;
-        Console.WriteLine($"\n{message}"); 
+        Console.ForegroundColor = ConsoleColor.Yellow; 
+        Console.Write("    << ");
+        SimulateTypingEffect();
+        Console.WriteLine($"{message} >>");
         Console.ResetColor();
+
+        SpeakAndPrint(message);
+    }
+
+    static void SimulateTypingEffect()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            Console.Write(".");
+            Thread.Sleep(400); 
+        }
+        Console.Write(" "); 
+    }
+
+    static void SpeakAndPrint(string text)
+    {
+        Console.WriteLine(text); 
+        synthesizer.Speak(text); 
     }
 }
