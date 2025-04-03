@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "hb3+P8rTaxE=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\RC_Student_lab\\Documents\\CS Chatbot\\Chatbot\\Chatbot.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\RC_Student_lab\\.nuget\\packages\\system.speech\\9.0.3\\system.speech.9.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}
