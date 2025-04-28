@@ -1,0 +1,6 @@
+﻿Build started at 8:24 PM...
+1>------ Build started: Project: Chatbot, Configuration: Debug Any CPU ------
+1>Skipping analyzers to speed up the build. You can execute 'Build' or 'Rebuild' command to run analyzers.
+1>Chatbot -> C:\Users\RC_Student_lab\Documents\CS Chatbot\Chatbot\bin\Debug\net8.0\Chatbot.dll
+========== Build: 1 succeeded, 0 failed, 0 up-to-date, 0 skipped ==========
+========== Build completed at 8:24 PM and took 00.502 seconds ==========
